@@ -1,6 +1,6 @@
 <template>
   <v-container class="container px-1">
-      <v-card-group class="card-group">
+      <v-card-group class="card-group w-100">
         <v-row>
           <v-col v-for="char in character"
             :key=char
@@ -14,13 +14,6 @@
               cover
               :src="char.image">
             </v-img>
-            <v-card-title>{{char.name}}</v-card-title>
-            <v-card-subtitle class="font-weight-black font-size-mid">
-              Status: {{char.status}}
-            </v-card-subtitle>
-            <v-card-subtitle class="font-weight-black font-size-mid">
-              Species: {{char.species}}
-            </v-card-subtitle>
           </v-card>
           </v-col>
         </v-row>

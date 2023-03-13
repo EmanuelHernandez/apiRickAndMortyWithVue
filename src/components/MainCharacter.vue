@@ -2,9 +2,10 @@
 <template>
     <v-card
     class="mx-auto bg-blue-grey-darken-4"
-    max-width="400"
+    max-width="450"
   >
   <v-container fluid>
+    <v-card-title class="font-weight-black text-white">{{ characterSelected.name }}</v-card-title>
     <v-img
       class="align-end"
       height="400"
@@ -17,26 +18,27 @@
         {{characterSelected.status}}
       </div>
     </v-img>
-    <v-card-title>{{ characterSelected.name }}</v-card-title>
-
-
-    <v-card-actions>
+    <!-- <v-card-actions>
       <v-btn
         :icon="show ? 'mdi-menu-up' : 'mdi-menu-down'"
         @click="show = !show"
-      ></v-btn>
-    </v-card-actions>
-
-    <v-expand-transition>
-      <div v-show="show">
-        <v-card-text>
-          <div>{{characterSelected.species}}</div>
-          <div>{{characterSelected.type}}</div>
-          <div>{{characterSelected.gender}}</div>
-          <div>{{characterSelected.location.name}}</div>
-        </v-card-text>
-      </div>
-    </v-expand-transition>
+      >
+      </v-btn>
+    </v-card-actions> -->
+    <!-- <v-expand-transition>
+      <div v-show="show"> -->
+        <v-row class="mt-4">
+          <v-col class="text-left">
+            <div> Origin: {{characterSelected.origin.name}}</div>
+            <div> Species: {{characterSelected.species}}</div>
+          </v-col>
+          <v-col class="text-left">
+            <div> Gender: {{characterSelected.gender}}</div>
+            <div> Location: {{characterSelected.location.name}}</div>
+          </v-col>
+        </v-row>
+      <!-- </div>
+    </v-expand-transition> -->
   </v-container>
   </v-card>
 </template>

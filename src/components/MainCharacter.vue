@@ -11,7 +11,7 @@
       :src="characterSelected.image"
       cover
     >
-      <div 
+      <div
         class="font-weight-black text-white w-25"
         :class="characterSelected.status === 'Alive' ? 'bg-light-green-accent-4' : 'bg-red-accent-4'">
         {{characterSelected.status}}

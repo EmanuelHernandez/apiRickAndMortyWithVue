@@ -1,0 +1,124 @@
+<template>
+  <v-row class="justify-space-evenly">
+    <v-col class="align-center d-flex bg-blue-grey-darken-2 mx-4 rounded-lg " >
+      <v-row>
+        <v-col cols="12">
+          <h1>¡Encuentra cualquier personaje!</h1>
+        </v-col>
+        <v-row class="justify-center"> 
+          <v-col cols="9">
+            <v-text-field
+              @change="charactersToSeach=$event.target.value"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="2" class="d-flex align-start">
+            <v-btn 
+              variant="tonal"
+              size="x-large"
+              @click="searchCharacter"
+            >
+              Buscar!
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-row>
+    </v-col>
+    <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg " v-if="characters.length > 0">
+      <card-character
+        class="heightListChars"
+        :character="characters"
+        :pages="pages"
+        @selected="selectCharacter($event)"
+      />
+      <v-pagination class="mt-3 bg-blue-grey-darken-4" :length="3"></v-pagination>
+    </v-col>
+    <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg" v-if="characterSelected != ''">
+      <main-character
+        class="heightListChars"
+        :character-selected="characterSelected"
+        :key="characterSelected"
+      />
+    </v-col>
+  </v-row>
+  <v-snackbar
+      v-model="alertaNoti"
+      color="red-accent-4"
+      :timeout=2000
+    >
+    No se ha encontrado ningun personaje con ese nombre.
+  </v-snackbar>
+</template>
+
+<script>
+import {characters} from '../api/characters.js';
+import CardCharacter from './CardCharacters.vue';
+import MainCharacter from './MainCharacter.vue';
+
+
+export default {
+  name: 'MainView',
+  components:{
+    CardCharacter,
+    MainCharacter,
+    
+  },
+  props: {
+  },
+  data() {
+    return{
+      alertaNoti : false,
+      characters:[],
+      charactersToSeach: '',
+      pages:0,
+      characterSelected:''
+    }
+  },
+  methods:{
+    async searchCharacter(){
+      this.characterSelected = ''
+      // this.alertaNoti = true
+      const resp = await characters.search(this.charactersToSeach, 'name')
+      this.characters = resp.results
+      this.pages = resp.pages
+      // this.alertaNoti = false
+    },
+    async selectCharacter(event){
+      this.characterSelected = event
+    }
+  },
+
+  computed:{
+    charactersNames(){
+      return this.characters.map(char => char.name) 
+    }
+
+  },
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+
+.font-size-mid{
+  font-size: 2em !important;
+}
+
+.heightListChars{
+  max-height: 85vh;
+}
+</style>

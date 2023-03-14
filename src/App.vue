@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex justify-center h-screen bg-blue-grey-darken-3 align-center">
+  <v-container class="d-flex justify-center h-screen bg-blue-grey-darken-3 align-center allWd">
         <MainView/>
   </v-container>
 </template>
@@ -24,6 +24,10 @@ export default {
 }
 * {
   user-select: none;
+}
+.allWd{
+  margin: 0px !important;
+  max-width: 100% !important;
 }
 
 

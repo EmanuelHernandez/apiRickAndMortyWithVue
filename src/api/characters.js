@@ -45,5 +45,25 @@ export const characters = {
       data = false;
     }
     return data
-  }
+  },
+  async searchEpisode(Episode) {
+    let data
+    try{
+      const resp = await fetch(`https://rickandmortyapi.com/api/episode/${Episode}`)
+      if (resp.status === 404) {
+        data = false
+      }
+      else if (resp.status === 200 ) {
+        data = await resp.json();
+      }
+    }
+    catch (error) {
+      data = false;
+    }
+    if(data.lenght > 1){
+      data = data.results
+    }
+    return data
+
+  },
 }

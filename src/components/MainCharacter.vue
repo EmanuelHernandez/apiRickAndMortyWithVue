@@ -1,14 +1,14 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
+  <v-container class="px-1 py-1">
     <v-card
-    class="mx-auto bg-blue-grey-darken-4"
-    max-width="450"
+    class="mx-auto bg-blue-grey-darken-4 px-2"
+    max-width="400"
   >
-  <v-container class="h-screen">
     <v-card-title class="font-weight-black text-white">{{ characterSelected.name }}</v-card-title>
     <v-img
       class="align-end"
-      height="400"
+      height="300"
       :src="characterSelected.image"
       cover
     >
@@ -37,19 +37,17 @@
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
-    <v-row v-show="show"> 
-
-        <v-card class="mx-auto">
-          <v-list
-            :items="episodios"
-            item-title="name"
-            item-value="id"
-          ></v-list>
-        </v-card>
-      </v-row>
-      </v-expand-transition>
-  </v-container>
+      <v-container v-show="show" class="heightListChars"> 
+        <v-list class="overflow-y-auto " height="100">
+          <v-list-item v-for="item in episodios" :key="item.id">
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+        <v-pagination class="mt-3 bg-blue-grey-darken-4" rounded="circle" :length="3"></v-pagination>
+      </v-container>
+    </v-expand-transition>
   </v-card>
+</v-container>
 </template>
 
 <script>
@@ -89,5 +87,7 @@ export default {
 </script>
 
 <style>
-
+.heightListChars{
+  display: inline-block
+}
 </style>

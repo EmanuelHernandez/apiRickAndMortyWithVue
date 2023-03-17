@@ -5,13 +5,17 @@
         <v-col cols="12">
           <h1>¡Encuentra cualquier personaje!</h1>
         </v-col>
-        <v-row class="justify-center"> 
+      <v-row>
+        <v-col>
+          <v-row class="justify-center"> 
           <v-col cols="9">
             <v-text-field
               @change="charactersToSeach=$event.target.value"
             >
             </v-text-field>
           </v-col>
+          </v-row>
+          <v-row class="justify-center mb-3"> 
           <v-col cols="2" class="d-flex align-start">
             <v-btn 
               variant="tonal"
@@ -22,6 +26,8 @@
             </v-btn>
           </v-col>
         </v-row>
+        </v-col>
+      </v-row>
       </v-row>
     </v-col>
     <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg " v-if="characters.length > 0">

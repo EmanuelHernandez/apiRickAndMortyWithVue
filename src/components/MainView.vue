@@ -37,7 +37,12 @@
         :pages="pages"
         @selected="selectCharacter($event)"
       />
-      <v-pagination class="mt-3 bg-blue-grey-darken-4" :length="3"></v-pagination>
+      <v-pagination 
+        class="mt-3 bg-blue-grey-darken-4" 
+        :length="3"
+        @next=" nextPage()"
+        @prev=" prevPage()" >
+      </v-pagination>
     </v-col>
     <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg" v-if="characterSelected != ''">
       <main-character
@@ -76,21 +81,28 @@ export default {
       alertaNoti : false,
       characters:[],
       charactersToSeach: '',
-      pages:0,
+      pages:1,
       characterSelected:''
     }
   },
   methods:{
-    async searchCharacter(){
+    async searchCharacter(page){
       this.characterSelected = ''
       // this.alertaNoti = true
-      const resp = await characters.search(this.charactersToSeach, 'name')
+      const resp = await characters.search(this.charactersToSeach, 'name',page)
       this.characters = resp.results
-      this.pages = resp.pages
       // this.alertaNoti = false
     },
     async selectCharacter(event){
       this.characterSelected = event
+    },
+    async nextPage(){
+      this.pages += 1
+      await this.searchCharacter(this.pages)
+    },
+    async prevPage(){
+      this.pages -= 1
+      await this.searchCharacter(this.pages)
     }
   },
 

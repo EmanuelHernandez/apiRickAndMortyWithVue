@@ -18,11 +18,12 @@ export const characters = {
     return data
   },
 
-  async search(value, type){
+  async search(value, type, page){
     let data
     let filter = type ? `?${type}=` : ''
+    page = page ? `&page=${page}` :''
     try{
-      const resp = await fetch(`https://rickandmortyapi.com/api/character/${filter}${value}`)
+      const resp = await fetch(`https://rickandmortyapi.com/api/character/${filter}${value}${page}`)
       if (resp.status === 404) {
         data = false
       }
@@ -66,4 +67,5 @@ export const characters = {
     return data
 
   },
+
 }

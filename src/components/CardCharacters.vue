@@ -1,7 +1,7 @@
 <template>
-  <v-container class="container px-1 d-flex">
-      <v-col cols="12">
-        <v-row class="justify-center">
+  <v-container class="d-flex px-2">
+      <v-col cols="12" class=" container scroll-card ">
+        <v-row class="justify-center bg-blue-grey-darken-4">
           <v-col v-for="char in character"
             :key=char
             cols="5">
@@ -40,7 +40,25 @@ export default {
 
 .container {
   overflow-y: auto;
-  overflow-x: none !important;
+  overflow-x: hidden !important;
 }
 
+/* Estilos para ocultar el scrollbar */
+.scroll-card::-webkit-scrollbar {
+  margin: .5em;
+  width: 0.5em;
+}
+
+.scroll-card::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroll-card::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+}
+
+.scroll-card::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 </style>

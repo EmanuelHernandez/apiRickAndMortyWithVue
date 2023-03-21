@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
-  <v-container class="px-5 py-1">
+  <v-container class="px-5 py-1 heightListChars">
     <v-card
     class="mx-auto bg-blue-grey-darken-4 px-2"
     max-width="400"
@@ -37,8 +37,8 @@
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
-      <v-container v-show="show" > 
-        <v-list class="overflow-y-auto bg-blue-grey-darken-2 rounded-lg " height="100">
+      <v-container v-show="show"  > 
+        <v-list class="overflow-y-auto bg-blue-grey-darken-3 rounded-lg " height="100">
           <v-list-item v-for="item in episodios" :key="item.id">
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
@@ -87,6 +87,6 @@ export default {
 
 <style>
 .heightListChars{
-  display: inline-block
+  min-height: 85vh;
 }
 </style>

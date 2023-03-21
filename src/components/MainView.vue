@@ -30,14 +30,22 @@
       </v-row>
       </v-row>
     </v-col>
-    <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg " v-if="characters.length > 0">
+    <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg " v-if="loadingSpinner">
+      <v-progress-circular
+        color="blue-lighten-3"
+        indeterminate
+        :size="128"
+        :width="12"
+      ></v-progress-circular>
+    </v-col>
+    <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg " v-if="characters.length > 0 && !this.loadingSpinner">
       <card-character
         class="heightListChars"
         :character="characters"
         @selected="selectCharacter($event)"
       />
       <v-pagination 
-        class="mt-3 bg-blue-grey-darken-4" 
+        class="mx-3 bg-blue-grey-darken-4" 
         :length="totalPages"
         @update:modelValue="otherPage($event)">
       </v-pagination>
@@ -80,16 +88,22 @@ export default {
       characters:[],
       charactersToSeach: '',
       totalPages:0,
-      characterSelected:''
+      characterSelected:'',
+      loadingSpinner:false
     }
   },
   methods:{
     async searchCharacter(page){
+      this.loadingSpinner = true
       this.characterSelected = ''
       const resp = await characters.search(this.charactersToSeach, 'name',page)
       this.characters = resp.results
       this.totalPages = resp.pages
-      if (resp === false) this.alertaNoti = true 
+      if (resp === false) {
+        this.alertaNoti = true 
+        this.characters = []
+      }
+      this.loadingSpinner = false
     },
     async selectCharacter(event){
       this.characterSelected = event
@@ -130,6 +144,6 @@ a {
 }
 
 .heightListChars{
-  min-height: 85vh;
+  max-height: 85vh;
 }
 </style>

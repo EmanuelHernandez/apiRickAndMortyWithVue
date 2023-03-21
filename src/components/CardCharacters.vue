@@ -26,9 +26,6 @@ export default {
       character:{
         type: Object
       },
-      pages:{
-        type: Number
-      }
     },
     methods:{
       characterSelected(event){
@@ -40,14 +37,10 @@ export default {
 </script>
 
 <style scoped>
-.font-size-mid{
-  font-size: 15px !important;
-}
+
 .container {
   overflow-y: auto;
   overflow-x: none !important;
 }
-.card-group {
-  display: inline-block;
-}
+
 </style>

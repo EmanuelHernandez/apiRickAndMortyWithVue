@@ -30,16 +30,6 @@ export const characters = {
       else if (resp.status === 200 ) {
         data = await resp.json();
       }
-      // if(data.info.pages > 1){        
-      //   for (let i = 2; i < data.info.pages + 1; i++) {
-      //     let filterPage = `&page=${i}`
-      //     const resp = await fetch(`https://rickandmortyapi.com/api/character/${filter}${value}${filterPage}`)
-      //     if (resp.status === 200 ) {
-      //       let dataForPage = await resp.json();
-      //       data.results = data.results.concat(dataForPage.results)
-      //     }
-      //   }
-      // }
       data = {results: data.results, pages: data.info.pages}
     }
     catch (error) {
@@ -61,10 +51,11 @@ export const characters = {
     catch (error) {
       data = false;
     }
-    if(data.lenght > 1){
-      data = data.results
-    }
-    return data
+    console.log(Array.isArray(data))
+    console.log(typeof data === 'object' ? [data] : data)
+    // eslint-disable-next-line no-debugger
+    debugger
+    return Array.isArray(data) ? data : [data]
 
   },
 

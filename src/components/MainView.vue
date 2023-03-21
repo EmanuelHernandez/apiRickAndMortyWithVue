@@ -1,6 +1,6 @@
 <template>
   <v-row class="justify-space-evenly">
-    <v-col class="align-center d-flex bg-blue-grey-darken-2 mx-4 rounded-lg " >
+    <v-col class="align-center d-flex bg-blue-grey-darken-2 mx-4 rounded-lg" >
       <v-row>
         <v-col cols="12">
           <h1>¡Encuentra cualquier personaje!</h1>
@@ -34,14 +34,12 @@
       <card-character
         class="heightListChars"
         :character="characters"
-        :pages="pages"
         @selected="selectCharacter($event)"
       />
       <v-pagination 
         class="mt-3 bg-blue-grey-darken-4" 
-        :length="3"
-        @next=" nextPage()"
-        @prev=" prevPage()" >
+        :length="totalPages"
+        @update:modelValue="otherPage($event)">
       </v-pagination>
     </v-col>
     <v-col class="bg-blue-grey-darken-2 pt-3 mx-4 rounded-lg" v-if="characterSelected != ''">
@@ -81,28 +79,23 @@ export default {
       alertaNoti : false,
       characters:[],
       charactersToSeach: '',
-      pages:1,
+      totalPages:0,
       characterSelected:''
     }
   },
   methods:{
     async searchCharacter(page){
       this.characterSelected = ''
-      // this.alertaNoti = true
       const resp = await characters.search(this.charactersToSeach, 'name',page)
       this.characters = resp.results
-      // this.alertaNoti = false
+      this.totalPages = resp.pages
+      if (resp === false) this.alertaNoti = true 
     },
     async selectCharacter(event){
       this.characterSelected = event
     },
-    async nextPage(){
-      this.pages += 1
-      await this.searchCharacter(this.pages)
-    },
-    async prevPage(){
-      this.pages -= 1
-      await this.searchCharacter(this.pages)
+    async otherPage(page){
+      await this.searchCharacter(page)
     }
   },
 
@@ -137,6 +130,6 @@ a {
 }
 
 .heightListChars{
-  max-height: 85vh;
+  min-height: 85vh;
 }
 </style>
